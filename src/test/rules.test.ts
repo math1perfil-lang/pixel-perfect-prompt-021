@@ -57,8 +57,8 @@ describe("Meu Tempo Livre", () => {
       days: 1,
     });
     expect(w).toHaveLength(1);
-    expect(w[0].start.getHours()).toBe(20);
-    expect(w[0].minutes).toBe(120);
+    expect(w[0]!.start.getHours()).toBe(20);
+    expect(w[0]!.minutes).toBe(120);
   });
 
   it("does not presume free time when no availability was declared", () => {
@@ -103,7 +103,7 @@ describe("RULIS Intelligence", () => {
   it("ranks a matching interest above a non-matching one", () => {
     const other = { ...base, id: "b", group_key: "cultura", category_id: "museus" };
     const ranked = rankActivities([other, base], ctx());
-    expect(ranked[0].activity.id).toBe("a");
+    expect(ranked[0]!.activity.id).toBe("a");
   });
 
   it("uses the configured weights (default 25/25/15/10/10/10/5 = 100)", () => {
