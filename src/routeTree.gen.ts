@@ -19,6 +19,7 @@ import { Route as AuthenticatedAppRouteRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authenticated/onboarding'
 import { Route as AuthenticatedAppAgoraRouteImport } from './routes/_authenticated/_app/agora'
 import { Route as AuthenticatedAppInicioRouteImport } from './routes/_authenticated/_app/inicio'
+import { Route as AuthenticatedAppSurpresaRouteImport } from './routes/_authenticated/_app/surpresa'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -68,6 +69,12 @@ const AuthenticatedAppInicioRoute = AuthenticatedAppInicioRouteImport.update({
   path: '/inicio',
   getParentRoute: () => AuthenticatedAppRouteRoute,
 } as any)
+const AuthenticatedAppSurpresaRoute =
+  AuthenticatedAppSurpresaRouteImport.update({
+    id: '/surpresa',
+    path: '/surpresa',
+    getParentRoute: () => AuthenticatedAppRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -78,6 +85,7 @@ export interface FileRoutesByFullPath {
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/agora': typeof AuthenticatedAppAgoraRoute
   '/inicio': typeof AuthenticatedAppInicioRoute
+  '/surpresa': typeof AuthenticatedAppSurpresaRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -88,6 +96,7 @@ export interface FileRoutesByTo {
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/agora': typeof AuthenticatedAppAgoraRoute
   '/inicio': typeof AuthenticatedAppInicioRoute
+  '/surpresa': typeof AuthenticatedAppSurpresaRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -101,6 +110,7 @@ export interface FileRoutesById {
   '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
   '/_authenticated/_app/agora': typeof AuthenticatedAppAgoraRoute
   '/_authenticated/_app/inicio': typeof AuthenticatedAppInicioRoute
+  '/_authenticated/_app/surpresa': typeof AuthenticatedAppSurpresaRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -113,6 +123,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/agora'
     | '/inicio'
+    | '/surpresa'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -123,6 +134,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/agora'
     | '/inicio'
+    | '/surpresa'
   id:
     | '__root__'
     | '/'
@@ -135,6 +147,7 @@ export interface FileRouteTypes {
     | '/_authenticated/onboarding'
     | '/_authenticated/_app/agora'
     | '/_authenticated/_app/inicio'
+    | '/_authenticated/_app/surpresa'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -218,17 +231,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppInicioRouteImport
       parentRoute: typeof AuthenticatedAppRouteRoute
     }
+    '/_authenticated/_app/surpresa': {
+      id: '/_authenticated/_app/surpresa'
+      path: '/surpresa'
+      fullPath: '/surpresa'
+      preLoaderRoute: typeof AuthenticatedAppSurpresaRouteImport
+      parentRoute: typeof AuthenticatedAppRouteRoute
+    }
   }
 }
 
 interface AuthenticatedAppRouteRouteChildren {
   AuthenticatedAppAgoraRoute: typeof AuthenticatedAppAgoraRoute
   AuthenticatedAppInicioRoute: typeof AuthenticatedAppInicioRoute
+  AuthenticatedAppSurpresaRoute: typeof AuthenticatedAppSurpresaRoute
 }
 
 const AuthenticatedAppRouteRouteChildren: AuthenticatedAppRouteRouteChildren = {
   AuthenticatedAppAgoraRoute: AuthenticatedAppAgoraRoute,
   AuthenticatedAppInicioRoute: AuthenticatedAppInicioRoute,
+  AuthenticatedAppSurpresaRoute: AuthenticatedAppSurpresaRoute,
 }
 
 const AuthenticatedAppRouteRouteWithChildren =
