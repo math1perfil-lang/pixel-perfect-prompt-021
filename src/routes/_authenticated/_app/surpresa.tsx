@@ -4,6 +4,7 @@ import { Dices, Gift, ThumbsDown, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ActivityCard } from "@/components/rulis/ActivityCard";
 import { EmptyState, ErrorBlock, LoadingBlock, PageHeader } from "@/components/rulis/common";
+import { AddToAgendaButton } from "@/components/rulis/ActivityActions";
 import { OriginControl } from "@/components/rulis/WeatherAndOrigin";
 import { useRecoBase } from "@/hooks/use-reco";
 import { useFreeWindows } from "@/hooks/use-freetime";
@@ -115,9 +116,16 @@ function Surpresa() {
                 <Dices /> De novo
               </Button>
             </div>
-            <Button variant="hero" className="mt-2 w-full" onClick={() => { void markLog(logId, true); }} asChild>
-              <span className="sr-only">Aceitar</span>
-            </Button>
+            <div className="mt-2 flex justify-center">
+              <AddToAgendaButton
+                activity={result.activity}
+                defaultStart={window?.start}
+                variant="hero"
+                size="lg"
+                label="Topei! Pôr na agenda"
+                onAdded={() => void markLog(logId, true)}
+              />
+            </div>
           </div>
         ) : noneLeft ? (
           <EmptyState icon={<Gift className="size-5" />} title="Acabaram as surpresas desse tipo" action={<Button variant="soft" onClick={() => { setSeen(new Set()); setNoneLeft(false); }}>Recomeçar</Button>}>
