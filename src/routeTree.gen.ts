@@ -17,10 +17,17 @@ import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as TermosRouteImport } from './routes/termos'
 import { Route as AuthenticatedAppRouteRouteImport } from './routes/_authenticated/_app/route'
 import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authenticated/onboarding'
+import { Route as RoteiroIdRouteImport } from './routes/roteiro.$id'
+import { Route as AuthenticatedAppAdminRouteImport } from './routes/_authenticated/_app/admin'
 import { Route as AuthenticatedAppAgendaRouteImport } from './routes/_authenticated/_app/agenda'
 import { Route as AuthenticatedAppAgoraRouteImport } from './routes/_authenticated/_app/agora'
 import { Route as AuthenticatedAppExplorarRouteImport } from './routes/_authenticated/_app/explorar'
+import { Route as AuthenticatedAppFimDeSemanaRouteImport } from './routes/_authenticated/_app/fim-de-semana'
 import { Route as AuthenticatedAppInicioRouteImport } from './routes/_authenticated/_app/inicio'
+import { Route as AuthenticatedAppMeusRolesRouteImport } from './routes/_authenticated/_app/meus-roles'
+import { Route as AuthenticatedAppOrcamentoRouteImport } from './routes/_authenticated/_app/orcamento'
+import { Route as AuthenticatedAppPerfilRouteImport } from './routes/_authenticated/_app/perfil'
+import { Route as AuthenticatedAppSocialRouteImport } from './routes/_authenticated/_app/social'
 import { Route as AuthenticatedAppSurpresaRouteImport } from './routes/_authenticated/_app/surpresa'
 import { Route as AuthenticatedAppTempoLivreRouteImport } from './routes/_authenticated/_app/tempo-livre'
 import { Route as AuthenticatedAppAtividadeIdRouteImport } from './routes/_authenticated/_app/atividade.$id'
@@ -63,6 +70,16 @@ const AuthenticatedOnboardingRoute = AuthenticatedOnboardingRouteImport.update({
   path: '/onboarding',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const RoteiroIdRoute = RoteiroIdRouteImport.update({
+  id: '/roteiro/$id',
+  path: '/roteiro/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAppAdminRoute = AuthenticatedAppAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedAppRouteRoute,
+} as any)
 const AuthenticatedAppAgendaRoute = AuthenticatedAppAgendaRouteImport.update({
   id: '/agenda',
   path: '/agenda',
@@ -79,9 +96,37 @@ const AuthenticatedAppExplorarRoute =
     path: '/explorar',
     getParentRoute: () => AuthenticatedAppRouteRoute,
   } as any)
+const AuthenticatedAppFimDeSemanaRoute =
+  AuthenticatedAppFimDeSemanaRouteImport.update({
+    id: '/fim-de-semana',
+    path: '/fim-de-semana',
+    getParentRoute: () => AuthenticatedAppRouteRoute,
+  } as any)
 const AuthenticatedAppInicioRoute = AuthenticatedAppInicioRouteImport.update({
   id: '/inicio',
   path: '/inicio',
+  getParentRoute: () => AuthenticatedAppRouteRoute,
+} as any)
+const AuthenticatedAppMeusRolesRoute =
+  AuthenticatedAppMeusRolesRouteImport.update({
+    id: '/meus-roles',
+    path: '/meus-roles',
+    getParentRoute: () => AuthenticatedAppRouteRoute,
+  } as any)
+const AuthenticatedAppOrcamentoRoute =
+  AuthenticatedAppOrcamentoRouteImport.update({
+    id: '/orcamento',
+    path: '/orcamento',
+    getParentRoute: () => AuthenticatedAppRouteRoute,
+  } as any)
+const AuthenticatedAppPerfilRoute = AuthenticatedAppPerfilRouteImport.update({
+  id: '/perfil',
+  path: '/perfil',
+  getParentRoute: () => AuthenticatedAppRouteRoute,
+} as any)
+const AuthenticatedAppSocialRoute = AuthenticatedAppSocialRouteImport.update({
+  id: '/social',
+  path: '/social',
   getParentRoute: () => AuthenticatedAppRouteRoute,
 } as any)
 const AuthenticatedAppSurpresaRoute =
@@ -110,10 +155,17 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/termos': typeof TermosRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
+  '/roteiro/$id': typeof RoteiroIdRoute
+  '/admin': typeof AuthenticatedAppAdminRoute
   '/agenda': typeof AuthenticatedAppAgendaRoute
   '/agora': typeof AuthenticatedAppAgoraRoute
   '/explorar': typeof AuthenticatedAppExplorarRoute
+  '/fim-de-semana': typeof AuthenticatedAppFimDeSemanaRoute
   '/inicio': typeof AuthenticatedAppInicioRoute
+  '/meus-roles': typeof AuthenticatedAppMeusRolesRoute
+  '/orcamento': typeof AuthenticatedAppOrcamentoRoute
+  '/perfil': typeof AuthenticatedAppPerfilRoute
+  '/social': typeof AuthenticatedAppSocialRoute
   '/surpresa': typeof AuthenticatedAppSurpresaRoute
   '/tempo-livre': typeof AuthenticatedAppTempoLivreRoute
   '/atividade/$id': typeof AuthenticatedAppAtividadeIdRoute
@@ -125,10 +177,17 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/termos': typeof TermosRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
+  '/roteiro/$id': typeof RoteiroIdRoute
+  '/admin': typeof AuthenticatedAppAdminRoute
   '/agenda': typeof AuthenticatedAppAgendaRoute
   '/agora': typeof AuthenticatedAppAgoraRoute
   '/explorar': typeof AuthenticatedAppExplorarRoute
+  '/fim-de-semana': typeof AuthenticatedAppFimDeSemanaRoute
   '/inicio': typeof AuthenticatedAppInicioRoute
+  '/meus-roles': typeof AuthenticatedAppMeusRolesRoute
+  '/orcamento': typeof AuthenticatedAppOrcamentoRoute
+  '/perfil': typeof AuthenticatedAppPerfilRoute
+  '/social': typeof AuthenticatedAppSocialRoute
   '/surpresa': typeof AuthenticatedAppSurpresaRoute
   '/tempo-livre': typeof AuthenticatedAppTempoLivreRoute
   '/atividade/$id': typeof AuthenticatedAppAtividadeIdRoute
@@ -143,10 +202,17 @@ export interface FileRoutesById {
   '/termos': typeof TermosRoute
   '/_authenticated/_app': typeof AuthenticatedAppRouteRouteWithChildren
   '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
+  '/roteiro/$id': typeof RoteiroIdRoute
+  '/_authenticated/_app/admin': typeof AuthenticatedAppAdminRoute
   '/_authenticated/_app/agenda': typeof AuthenticatedAppAgendaRoute
   '/_authenticated/_app/agora': typeof AuthenticatedAppAgoraRoute
   '/_authenticated/_app/explorar': typeof AuthenticatedAppExplorarRoute
+  '/_authenticated/_app/fim-de-semana': typeof AuthenticatedAppFimDeSemanaRoute
   '/_authenticated/_app/inicio': typeof AuthenticatedAppInicioRoute
+  '/_authenticated/_app/meus-roles': typeof AuthenticatedAppMeusRolesRoute
+  '/_authenticated/_app/orcamento': typeof AuthenticatedAppOrcamentoRoute
+  '/_authenticated/_app/perfil': typeof AuthenticatedAppPerfilRoute
+  '/_authenticated/_app/social': typeof AuthenticatedAppSocialRoute
   '/_authenticated/_app/surpresa': typeof AuthenticatedAppSurpresaRoute
   '/_authenticated/_app/tempo-livre': typeof AuthenticatedAppTempoLivreRoute
   '/_authenticated/_app/atividade/$id': typeof AuthenticatedAppAtividadeIdRoute
@@ -160,10 +226,17 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/termos'
     | '/onboarding'
+    | '/roteiro/$id'
+    | '/admin'
     | '/agenda'
     | '/agora'
     | '/explorar'
+    | '/fim-de-semana'
     | '/inicio'
+    | '/meus-roles'
+    | '/orcamento'
+    | '/perfil'
+    | '/social'
     | '/surpresa'
     | '/tempo-livre'
     | '/atividade/$id'
@@ -175,10 +248,17 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/termos'
     | '/onboarding'
+    | '/roteiro/$id'
+    | '/admin'
     | '/agenda'
     | '/agora'
     | '/explorar'
+    | '/fim-de-semana'
     | '/inicio'
+    | '/meus-roles'
+    | '/orcamento'
+    | '/perfil'
+    | '/social'
     | '/surpresa'
     | '/tempo-livre'
     | '/atividade/$id'
@@ -192,10 +272,17 @@ export interface FileRouteTypes {
     | '/termos'
     | '/_authenticated/_app'
     | '/_authenticated/onboarding'
+    | '/roteiro/$id'
+    | '/_authenticated/_app/admin'
     | '/_authenticated/_app/agenda'
     | '/_authenticated/_app/agora'
     | '/_authenticated/_app/explorar'
+    | '/_authenticated/_app/fim-de-semana'
     | '/_authenticated/_app/inicio'
+    | '/_authenticated/_app/meus-roles'
+    | '/_authenticated/_app/orcamento'
+    | '/_authenticated/_app/perfil'
+    | '/_authenticated/_app/social'
     | '/_authenticated/_app/surpresa'
     | '/_authenticated/_app/tempo-livre'
     | '/_authenticated/_app/atividade/$id'
@@ -208,6 +295,7 @@ export interface RootRouteChildren {
   PrivacidadeRoute: typeof PrivacidadeRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   TermosRoute: typeof TermosRoute
+  RoteiroIdRoute: typeof RoteiroIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -268,6 +356,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedOnboardingRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/roteiro/$id': {
+      id: '/roteiro/$id'
+      path: '/roteiro/$id'
+      fullPath: '/roteiro/$id'
+      preLoaderRoute: typeof RoteiroIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/_app/admin': {
+      id: '/_authenticated/_app/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAppAdminRouteImport
+      parentRoute: typeof AuthenticatedAppRouteRoute
+    }
     '/_authenticated/_app/agenda': {
       id: '/_authenticated/_app/agenda'
       path: '/agenda'
@@ -289,11 +391,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppExplorarRouteImport
       parentRoute: typeof AuthenticatedAppRouteRoute
     }
+    '/_authenticated/_app/fim-de-semana': {
+      id: '/_authenticated/_app/fim-de-semana'
+      path: '/fim-de-semana'
+      fullPath: '/fim-de-semana'
+      preLoaderRoute: typeof AuthenticatedAppFimDeSemanaRouteImport
+      parentRoute: typeof AuthenticatedAppRouteRoute
+    }
     '/_authenticated/_app/inicio': {
       id: '/_authenticated/_app/inicio'
       path: '/inicio'
       fullPath: '/inicio'
       preLoaderRoute: typeof AuthenticatedAppInicioRouteImport
+      parentRoute: typeof AuthenticatedAppRouteRoute
+    }
+    '/_authenticated/_app/meus-roles': {
+      id: '/_authenticated/_app/meus-roles'
+      path: '/meus-roles'
+      fullPath: '/meus-roles'
+      preLoaderRoute: typeof AuthenticatedAppMeusRolesRouteImport
+      parentRoute: typeof AuthenticatedAppRouteRoute
+    }
+    '/_authenticated/_app/orcamento': {
+      id: '/_authenticated/_app/orcamento'
+      path: '/orcamento'
+      fullPath: '/orcamento'
+      preLoaderRoute: typeof AuthenticatedAppOrcamentoRouteImport
+      parentRoute: typeof AuthenticatedAppRouteRoute
+    }
+    '/_authenticated/_app/perfil': {
+      id: '/_authenticated/_app/perfil'
+      path: '/perfil'
+      fullPath: '/perfil'
+      preLoaderRoute: typeof AuthenticatedAppPerfilRouteImport
+      parentRoute: typeof AuthenticatedAppRouteRoute
+    }
+    '/_authenticated/_app/social': {
+      id: '/_authenticated/_app/social'
+      path: '/social'
+      fullPath: '/social'
+      preLoaderRoute: typeof AuthenticatedAppSocialRouteImport
       parentRoute: typeof AuthenticatedAppRouteRoute
     }
     '/_authenticated/_app/surpresa': {
@@ -321,20 +458,32 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedAppRouteRouteChildren {
+  AuthenticatedAppAdminRoute: typeof AuthenticatedAppAdminRoute
   AuthenticatedAppAgendaRoute: typeof AuthenticatedAppAgendaRoute
   AuthenticatedAppAgoraRoute: typeof AuthenticatedAppAgoraRoute
   AuthenticatedAppExplorarRoute: typeof AuthenticatedAppExplorarRoute
+  AuthenticatedAppFimDeSemanaRoute: typeof AuthenticatedAppFimDeSemanaRoute
   AuthenticatedAppInicioRoute: typeof AuthenticatedAppInicioRoute
+  AuthenticatedAppMeusRolesRoute: typeof AuthenticatedAppMeusRolesRoute
+  AuthenticatedAppOrcamentoRoute: typeof AuthenticatedAppOrcamentoRoute
+  AuthenticatedAppPerfilRoute: typeof AuthenticatedAppPerfilRoute
+  AuthenticatedAppSocialRoute: typeof AuthenticatedAppSocialRoute
   AuthenticatedAppSurpresaRoute: typeof AuthenticatedAppSurpresaRoute
   AuthenticatedAppTempoLivreRoute: typeof AuthenticatedAppTempoLivreRoute
   AuthenticatedAppAtividadeIdRoute: typeof AuthenticatedAppAtividadeIdRoute
 }
 
 const AuthenticatedAppRouteRouteChildren: AuthenticatedAppRouteRouteChildren = {
+  AuthenticatedAppAdminRoute: AuthenticatedAppAdminRoute,
   AuthenticatedAppAgendaRoute: AuthenticatedAppAgendaRoute,
   AuthenticatedAppAgoraRoute: AuthenticatedAppAgoraRoute,
   AuthenticatedAppExplorarRoute: AuthenticatedAppExplorarRoute,
+  AuthenticatedAppFimDeSemanaRoute: AuthenticatedAppFimDeSemanaRoute,
   AuthenticatedAppInicioRoute: AuthenticatedAppInicioRoute,
+  AuthenticatedAppMeusRolesRoute: AuthenticatedAppMeusRolesRoute,
+  AuthenticatedAppOrcamentoRoute: AuthenticatedAppOrcamentoRoute,
+  AuthenticatedAppPerfilRoute: AuthenticatedAppPerfilRoute,
+  AuthenticatedAppSocialRoute: AuthenticatedAppSocialRoute,
   AuthenticatedAppSurpresaRoute: AuthenticatedAppSurpresaRoute,
   AuthenticatedAppTempoLivreRoute: AuthenticatedAppTempoLivreRoute,
   AuthenticatedAppAtividadeIdRoute: AuthenticatedAppAtividadeIdRoute,
@@ -365,6 +514,7 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacidadeRoute: PrivacidadeRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   TermosRoute: TermosRoute,
+  RoteiroIdRoute: RoteiroIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
