@@ -10,7 +10,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { Logo } from "@/components/rulis/Logo";
-import { Chip, LoadingBlock } from "@/components/rulis/common";
+import { Chip, EmptyState, ErrorBlock, LoadingBlock } from "@/components/rulis/common";
 import { AvailabilityEditor, CommitmentsEditor } from "@/components/rulis/RoutineEditors";
 import { categoriesQuery, profileQuery, prefsQuery } from "@/lib/queries";
 import { BUDGET_OPTIONS, DISTANCE_OPTIONS, GROUP_DOT, GROUPS } from "@/lib/constants";
@@ -54,6 +54,7 @@ function Onboarding() {
   const [step, setStep] = useState(0);
   const [saving, setSaving] = useState(false);
 
+  // birth_date is collected at sign-up and kept as loaded; it is not asked again here.
   const [me, setMe] = useState({ full_name: "", birth_date: "", city: "Florianópolis", state: "SC", terms: false });
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [interests, setInterests] = useState<string[]>([]);
@@ -93,8 +94,10 @@ function Onboarding() {
 
   if (profile.isLoading || cats.isLoading) return <LoadingBlock label="Preparando seu perfil…" />;
 
+  const hasCategories = (cats.data?.length ?? 0) > 0;
+  // If there are no categories to choose from, don't trap the person on this step.
   const canNext =
-    step === 0 ? me.full_name.trim().length >= 2 && me.terms : step === 1 ? interests.length > 0 : true;
+    step === 0 ? me.full_name.trim().length >= 2 && me.terms : step === 1 ? interests.length > 0 || !hasCategories : true;
 
   async function finish() {
     setSaving(true);
@@ -103,7 +106,7 @@ function Onboarding() {
       if (avatarFile) avatar_url = await uploadAvatar(avatarFile);
       await updateProfile({
         full_name: me.full_name.trim(),
-        birth_date: me.birth_date || null,
+        ...(me.birth_date ? { birth_date: me.birth_date } : {}),
         city: me.city.trim() || null,
         state: me.state.trim().toUpperCase() || null,
         ...(avatar_url ? { avatar_url } : {}),
@@ -171,10 +174,6 @@ function Onboarding() {
                   <Label htmlFor="ob-name">Como podemos te chamar?</Label>
                   <Input id="ob-name" value={me.full_name} onChange={(e) => setMe({ ...me, full_name: e.target.value })} />
                 </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="ob-birth">Data de nascimento</Label>
-                  <Input id="ob-birth" type="date" value={me.birth_date} onChange={(e) => setMe({ ...me, birth_date: e.target.value })} />
-                </div>
                 <div className="grid grid-cols-[1fr_88px] gap-3">
                   <div className="space-y-1.5">
                     <Label htmlFor="ob-city">Cidade</Label>
@@ -207,22 +206,34 @@ function Onboarding() {
             <>
               <h1 className="text-3xl font-extrabold">O que você gosta de fazer?</h1>
               <p className="mt-2 text-muted-foreground">Escolha quantos quiser. Ninguém é uma coisa só.</p>
-              <div className="mt-6 space-y-6">
-                {GROUPS.map((g) => (
-                  <div key={g.key}>
-                    <p className="mb-2 flex items-center gap-2 text-sm font-bold uppercase tracking-wider">
-                      <span className={cn("size-2.5 rounded-full", GROUP_DOT[g.key])} /> {g.label}
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {(catsByGroup[g.key] ?? []).map((c) => (
-                        <Chip key={c.id} active={interests.includes(c.id)} onClick={() => setInterests(toggle(interests, c.id))}>
-                          {c.name}
-                        </Chip>
-                      ))}
+              {cats.isError ? (
+                <div className="mt-6">
+                  <ErrorBlock error={cats.error} onRetry={() => cats.refetch()} />
+                </div>
+              ) : !hasCategories ? (
+                <div className="mt-6">
+                  <EmptyState title="Os interesses ainda não foram carregados">
+                    Não encontramos categorias para escolher agora. Você pode continuar e ajustar seus interesses depois.
+                  </EmptyState>
+                </div>
+              ) : (
+                <div className="mt-6 space-y-6">
+                  {GROUPS.map((g) => (
+                    <div key={g.key}>
+                      <p className="mb-2 flex items-center gap-2 text-sm font-bold uppercase tracking-wider">
+                        <span className={cn("size-2.5 rounded-full", GROUP_DOT[g.key])} /> {g.label}
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {(catsByGroup[g.key] ?? []).map((c) => (
+                          <Chip key={c.id} active={interests.includes(c.id)} onClick={() => setInterests(toggle(interests, c.id))}>
+                            {c.name}
+                          </Chip>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </>
           )}
 
@@ -402,7 +413,7 @@ function Onboarding() {
           </Button>
           {step < STEPS.length - 1 ? (
             <Button variant="hero" size="lg" onClick={() => setStep((s) => s + 1)} disabled={!canNext}>
-              {step === 1 && interests.length === 0 ? "Escolha pelo menos um" : step === 0 && !me.terms ? "Aceite os termos" : "Continuar"} <ArrowRight />
+              {step === 1 && interests.length === 0 && hasCategories ? "Escolha pelo menos um" : step === 0 && !me.terms ? "Aceite os termos" : "Continuar"} <ArrowRight />
             </Button>
           ) : (
             <Button variant="hero" size="lg" onClick={finish} disabled={saving}>
